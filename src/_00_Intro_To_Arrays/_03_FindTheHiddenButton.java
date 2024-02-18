@@ -36,10 +36,9 @@ public class _03_FindTheHiddenButton implements ActionListener{
         buttons = new JButton[n];
         // 5. Make a for loop to iterate through the JButton array
         for (int i = 0; i < n; i++) {
-        	JButton b = buttons[i];
-        	b = new JButton();
-        	b.addActionListener(this);
-        	panel.add(b);
+        	buttons[i] = new JButton();
+        	buttons[i].addActionListener(this);
+        	panel.add(buttons[i]);
         }
         window.add(panel);
             // 6. initialize each JButton in the array
