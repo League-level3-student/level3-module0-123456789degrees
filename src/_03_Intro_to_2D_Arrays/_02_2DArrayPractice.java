@@ -31,18 +31,18 @@ public class _02_2DArrayPractice {
      *          6, 7, 8
      */
     public Integer[][] test1() {
-        
-        return null;
+        Integer[][] arr = {{0,1,2}, {3,4,5}, {6,7,8}};
+        return arr;
     }
     
     /*
      * Return a 2D array that can accommodate the grid of values below:
      *          "a", "b", "c", "d",
-     *          "e", "f", "g", "e"
+     *          "e", "f", "g", "h"
      */
     public String[][] test2() {
-        
-        return null;
+        String[][] arr = {{"a", "b",  "c", "d"}, {"e", "f", "g", "h"}};
+        return arr;
     }
     
     /*
@@ -54,8 +54,8 @@ public class _02_2DArrayPractice {
      *          true, false
      */
     public Boolean[][] test3() {
-        
-        return null;
+        Boolean[][] arr = {{true, false}, {false, false}, {false, true}, {true, true}, {true, false}};
+        return arr;
     }
     
     /*

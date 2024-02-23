@@ -1,5 +1,6 @@
 package _01_Simple_Array_Algorithms;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class MoreArrayFun {
@@ -67,12 +68,21 @@ public class MoreArrayFun {
     	}
     }
     public static void ranString(String[] arr) {
+    	ArrayList <Integer> list = new ArrayList<Integer>();
     	Random random = new Random();
-    	int rand = random.nextInt(arr.length + 1);
+    	for (int i = 0; i < arr.length; i++) {
+    		int rand = random.nextInt(arr.length);
+    		while (list.contains(rand)) {
+    			rand = random.nextInt(arr.length);
+    		}
+    		System.out.println(arr[rand]);
+    		list.add(rand);
+    	}
     }
     //1. Create a main method to test the other methods you write.
 	public static void main (String[] args) {
-		
+		String[] arr = {"Joshua", "is", "the", "best"};
+		ranString(arr);
 	}
 
 
