@@ -53,7 +53,77 @@ public class TheWrongWayCow {
     public static int[] findWrongWayCow(final char[][] field) {
         // Fill in the code to return the [col, row] coordinate position of the
         // head (letter 'c') of the wrong way cow!
-        
-        return null;
+    	int west, east, south, north;
+    	west = 0;
+    	east = 0;
+    	south = 0;
+    	north = 0;
+    	for (int i = 0; i < field.length; i++) {
+    		for (int j = 0; j < field[i].length; j++) {
+    			if (field[i][j] == 'c') {
+    				if (checkNorth(field, i, j)) {
+    					north++;
+    				}
+    				else if (checkSouth(field, i, j)) {
+    					south++;
+    				}
+    				else if (checkWesty(field, i, j)) {
+    					west++;
+    				}
+    				else if (checkEast(field, i, j)) {
+    					east++;
+    				}
+    			}
+    		}
+    	}
+    	System.out.println(west);
+    	System.out.println(south);
+    	System.out.println(north);
+    	System.out.println(east);
+    	for (int i = 0; i < field.length; i++) {
+    		for (int j = 0; j < field[i].length; j++) {
+    			if (field[i][j] == 'c') {
+    				if (checkNorth(field, i, j)) {
+        				if (north == 1) {
+        					System.out.print(i);
+        					System.out.print(j);
+        					return new int[]{j, i};
+        				}
+        			}
+        			else if (checkSouth(field, i, j)) {
+        				if (south == 1) {
+        					return new int[]{j, i};
+        				}
+        			}
+        			else if (checkWesty(field, i, j)) {
+        				if (west == 1) {
+        					return new int[]{j, i};
+        				}
+        			}
+        			else if (checkEast(field, i, j)) {
+        				if (east == 1) {
+        					return new int[]{j, i};
+        				}
+        			}
+    			}
+    		}
+    	}
+    	return new int[]{-1, -1};
     }
+
+	private static boolean checkEast(final char[][] field, int i, int j) {
+		return j != 0 && field[i][j-1] == 'o';
+	}
+
+	private static boolean checkWesty(final char[][] field, int i, int j) {
+		return j != field[i].length - 1 && field[i][j+1] == 'o';
+	}
+
+	private static boolean checkSouth(final char[][] field, int i, int j) {
+		return i != 0 && field[i-1][j] == 'o';
+	}
+
+	private static boolean checkNorth(final char[][] field, int i, int j) {
+		return i != field.length - 1 && field[i+1][j] == 'o';
+	}
 }
