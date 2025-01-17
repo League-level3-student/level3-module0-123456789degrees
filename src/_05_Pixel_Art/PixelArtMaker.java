@@ -6,13 +6,17 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+
 
 public class PixelArtMaker implements MouseListener, ActionListener{
 	private static final String DATA_FILE = "src/_05_Pixel_Art/saved.data";
@@ -21,7 +25,6 @@ public class PixelArtMaker implements MouseListener, ActionListener{
     private GridPanel gp;
     ColorSelectionPanel csp;
     private JButton save;
-
     public void start() {
         gip = new GridInputPanel(this);	
         window = new JFrame("Pixel Art");
@@ -29,10 +32,24 @@ public class PixelArtMaker implements MouseListener, ActionListener{
         window.setResizable(false);
         save = new JButton("Save");
         window.add(save);
+        save.addActionListener(this);
+         gp = load();
         
-        window.add(gip);
-        window.pack();
+        if (gp == null) {
+        	window.add(gip);
+        }
+        else {
+        	window.add(gp);
+        	csp = new ColorSelectionPanel();
+        	window.add(csp);
+            gp.repaint();
+            gp.addMouseListener(this);
+        }
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+       
+        
+        
+         window.pack();
         window.setVisible(true);
     }
     public void actionPerformed(ActionEvent e) {
@@ -45,6 +62,19 @@ public class PixelArtMaker implements MouseListener, ActionListener{
 			} catch (IOException error) {
 				error.printStackTrace();
 			}
+		}
+	}
+    public GridPanel load() {
+		try (FileInputStream fis = new FileInputStream(new File(DATA_FILE)); ObjectInputStream ois = new ObjectInputStream(fis)) {
+			return (GridPanel) ois.readObject();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		} catch (ClassNotFoundException e) {
+			// This can occur if the object we read from the file is not
+			// an instance of any recognized class
+			e.printStackTrace();
+			return null;
 		}
 	}
     public void submitGridData(int w, int h, int r, int c) {
